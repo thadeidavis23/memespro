@@ -4,25 +4,39 @@
     box-sizing: border-box;
 }
 
+/* Critical mobile viewport and touch handling fixes */
+html {
+    width: 100%;
+    height: 100%;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 /* Enable proper touch handling for all buttons and interactive elements */
-button, input[type="button"], input[type="submit"], input[type="checkbox"], input[type="range"], input[type="color"], select {
+button, a, input[type="button"], input[type="submit"], input[type="checkbox"], input[type="range"], input[type="color"], select, img[onclick], div[onclick] {
     touch-action: manipulation;
     -webkit-user-select: none;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     background: white;
     min-height: 100vh;
+    min-height: 100dvh;
     color: #333;
     overflow: hidden;
     position: fixed;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
     -webkit-user-select: none;
     user-select: none;
     -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 /* Home Page Styles */
@@ -52,14 +66,23 @@ body {
 }
 
 .menu-btn {
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     cursor: pointer;
     transition: transform 0.2s, opacity 0.2s;
     border: none;
     background: none;
-    padding: 0;
+    padding: 6px;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    pointer-events: auto;
+    z-index: 1001;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .menu-btn:hover {
@@ -92,13 +115,24 @@ body {
 
 .menu-close-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     background: none;
     border: none;
     color: #FEFAEF;
     font-size: 28px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    pointer-events: auto;
+    z-index: 1002;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .menu-list {
@@ -134,11 +168,14 @@ body {
     height: 100%;
     background: rgba(0,0,0,0.5);
     display: none;
-    z-index: 999;
+    z-index: 998;
+    pointer-events: none;
+    touch-action: manipulation;
 }
 
 .menu-overlay.open {
     display: block;
+    pointer-events: auto;
 }
 
 /* Center Content */
@@ -715,10 +752,12 @@ body {
 /* Close Button (Top-Left) */
 .editor-close-btn {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
+    top: 15px;
+    left: 15px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0;
     background: rgba(255, 107, 0, 0.1);
     color: #FF6B00;
@@ -731,6 +770,9 @@ body {
     justify-content: center;
     transition: all 0.3s ease;
     z-index: 1001;
+    touch-action: manipulation;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .editor-close-btn:hover {
@@ -778,6 +820,11 @@ canvas {
     background: white;
     cursor: crosshair;
     touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+    z-index: 500;
 }
 
 /* Bottom Color Bar Container */
@@ -852,23 +899,30 @@ canvas {
     position: fixed;
     bottom: 25px;
     left: 25px;
-    padding: 3px 3px;
+    padding: 10px 16px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     background: #FF6B00;
     color: white;
     border: none;
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
     transition: all 0.3s ease;
     z-index: 999;
     touch-action: manipulation;
+    pointer-events: auto;
     -webkit-user-select: none;
     user-select: none;
     -webkit-touch-callout: none;
-    min-width: 44px;
-    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .editor-settings-btn:hover {
@@ -885,7 +939,9 @@ canvas {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    padding: 12px 28px;
+    padding: 12px 24px;
+    min-width: 44px;
+    min-height: 44px;
     background: #FF6B00;
     color: white;
     border: none;
@@ -897,11 +953,14 @@ canvas {
     transition: all 0.3s ease;
     z-index: 999;
     touch-action: manipulation;
+    pointer-events: auto;
     -webkit-user-select: none;
     user-select: none;
     -webkit-touch-callout: none;
-    min-width: 44px;
-    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .editor-action-btn:hover {
@@ -922,9 +981,11 @@ canvas {
     background: white;
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(255, 107, 0, 0.4);
-    z-index: 2001;
+    z-index: 998;
     overflow: hidden;
     min-width: 200px;
+    pointer-events: auto;
+    touch-action: manipulation;
 }
 
 .share-menu.show {
@@ -947,8 +1008,11 @@ canvas {
     font-family: 'Comic Neue', cursive;
     border-bottom: 1px solid #f0f0f0;
     touch-action: manipulation;
+    pointer-events: auto;
     -webkit-user-select: none;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
     -webkit-touch-callout: none;
     min-height: 44px;
 }

@@ -17,6 +17,18 @@ let offsetY = 0;
 let currentBgColor = '#1E90FF';
 let activeTextElement = null;
 let isInTextInputMode = false;
+let touchStartTime = 0;
+
+// Prevent double-tap zoom
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('gesturestart', (e) => {
+    e.preventDefault();
+});
 
 const watermarkUrl = 'https://ibb.co/jZrYW1jy';
 const watermarkBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
@@ -731,4 +743,83 @@ document.addEventListener('touchend', (e) => {
         e.preventDefault();
     }
 }, false);
+
+// ===== GLOBAL TOUCH EVENT DELEGATION FOR ALL INTERACTIVE ELEMENTS =====
+document.addEventListener('touchend', (e) => {
+    // Handle color swatches
+    const colorSwatch = e.target.closest('.color-swatch');
+    if (colorSwatch) {
+        e.preventDefault();
+        e.stopPropagation();
+        const styleStr = colorSwatch.getAttribute('style') || '';
+        let color = '#1E90FF';
+        
+        if (styleStr.includes('linear-gradient')) {
+            if (styleStr.includes('667eea')) {
+                color = 'linear-gradient(135deg, #667eea, #764ba2)';
+            } else {
+                color = 'linear-gradient(135deg, #FF6B6B, #FFD93D)';
+            }
+        } else {
+            const match = styleStr.match(/#[0-9a-f]{6}/i);
+            if (match) color = match[0];
+        }
+        changeBgColor(color);
+        return;
+    }
+    
+    // Handle sticker buttons
+    const stickerBtn = e.target.closest('.sticker-btn');
+    if (stickerBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const emoji = stickerBtn.textContent.trim();
+        addSticker(emoji);
+        return;
+    }
+    
+    // Handle share options
+    const shareOption = e.target.closest('.share-option');
+    if (shareOption) {
+        e.preventDefault();
+        e.stopPropagation();
+        shareOption.click();
+        return;
+    }
+    
+    // Handle onclick elements
+    const onclickElement = e.target.closest('[onclick]');
+    if (onclickElement && !onclickElement.closest('[role="button"]')) {
+        e.preventDefault();
+        const onclickAttr = onclickElement.getAttribute('onclick');
+        if (onclickAttr) {
+            Function(onclickAttr).call(onclickElement);
+        }
+        return;
+    }
+}, { passive: false, capture: false });
+
+// Initialize touch handlers when document is ready
+document.addEventListener('DOMContentLoaded', () => {
+    setupTouchHandlers();
+    
+    // Re-setup touch handlers when DOM changes
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                setupTouchHandlers();
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
+
+// Ensure touch handlers are setup immediately
+if (document.readyState !== 'loading') {
+    setupTouchHandlers();
+}
 
