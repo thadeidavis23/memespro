@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Inter', sans-serif;
     background: white;
     min-height: 100vh;
     color: #333;
@@ -31,7 +31,7 @@ body {
 }
 
 .logo {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Permanent Marker', cursive;
     font-size: 24px;
     font-weight: 700;
     color: #FF6B00;
