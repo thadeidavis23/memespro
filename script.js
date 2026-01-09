@@ -394,7 +394,7 @@ canvas.addEventListener('mouseleave', () => {
 });
 
 canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
+    // Don't prevent default here - let it bubble up for button taps
     touchStartTime = Date.now();
     const touch = e.touches[0];
     const rect = canvas.getBoundingClientRect();
@@ -424,7 +424,11 @@ canvas.addEventListener('touchstart', (e) => {
 });
 
 canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
+    // Only prevent default when actively dragging an element
+    if (isDrawing && selectedElement) {
+        e.preventDefault();
+    }
+
     if (!isDrawing || !selectedElement) return;
 
     const touch = e.touches[0];
@@ -600,6 +604,81 @@ function shareWhatsApp() {
 
 // Initialize
 drawCanvas();
+
+// ===== MOBILE TOUCH EVENT HANDLERS FOR UI ELEMENTS =====
+
+// Wait for DOM to be ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTouchHandlers);
+} else {
+    setupTouchHandlers();
+}
+
+function setupTouchHandlers() {
+    // Add touch support to all buttons
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+            this.style.opacity = '0.7';
+            this.style.transform = 'scale(0.95)';
+        }, { passive: false });
+        
+        button.addEventListener('touchend', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1)';
+            
+            // Simulate click for onclick handlers
+            const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            this.dispatchEvent(clickEvent);
+        }, { passive: false });
+    });
+    
+    // Add touch support to color swatches specifically
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    colorSwatches.forEach((swatch, index) => {
+        swatch.addEventListener('touchend', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            // Get the actual background color
+            const styleStr = this.getAttribute('style');
+            let color = '#1E90FF';
+            
+            if (styleStr.includes('linear-gradient')) {
+                if (styleStr.includes('667eea')) {
+                    color = 'linear-gradient(135deg, #667eea, #764ba2)';
+                } else {
+                    color = 'linear-gradient(135deg, #FF6B6B, #FFD93D)';
+                }
+            } else {
+                const match = styleStr.match(/#[0-9a-f]{6}/i);
+                if (match) {
+                    color = match[0];
+                }
+            }
+            
+            changeBgColor(color);
+        }, { passive: false });
+    });
+    
+    // Add touch support to sticker buttons
+    const stickerBtns = document.querySelectorAll('.sticker-btn');
+    stickerBtns.forEach(btn => {
+        btn.addEventListener('touchend', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            const emoji = this.textContent.trim();
+            addSticker(emoji);
+        }, { passive: false });
+    });
+}
 
 // Close overlays when clicking outside
 document.addEventListener('keydown', (e) => {

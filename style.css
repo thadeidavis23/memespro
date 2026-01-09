@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+/* Enable proper touch handling for all buttons and interactive elements */
+button, input[type="button"], input[type="submit"], input[type="checkbox"], input[type="range"], input[type="color"], select {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background: white;
@@ -819,11 +826,20 @@ canvas {
     border: 3px solid transparent;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .color-swatch:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .color-swatch.active {
@@ -847,6 +863,12 @@ canvas {
     box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
     transition: all 0.3s ease;
     z-index: 999;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .editor-settings-btn:hover {
@@ -874,6 +896,12 @@ canvas {
     box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
     transition: all 0.3s ease;
     z-index: 999;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .editor-action-btn:hover {
@@ -918,6 +946,11 @@ canvas {
     transition: all 0.2s ease;
     font-family: 'Comic Neue', cursive;
     border-bottom: 1px solid #f0f0f0;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    min-height: 44px;
 }
 
 .share-option:last-child {
@@ -1491,11 +1524,20 @@ canvas {
     cursor: pointer;
     transition: all 0.2s;
     margin: 0 !important;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    min-height: 45px;
 }
 
 .sticker-btn:hover {
     background: #FF6B00;
     transform: scale(1.1);
+}
+
+.sticker-btn:active {
+    transform: scale(0.95);
 }
 
 .close-sticker-picker {
