@@ -58,7 +58,12 @@ function startTextInputMode(x, y) {
     
     // Clear and focus mobile keyboard input
     mobileKeyboardInput.value = '';
-    mobileKeyboardInput.focus();
+    
+    // Scroll canvas into view before focusing keyboard
+    setTimeout(() => {
+        canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        mobileKeyboardInput.focus();
+    }, 100);
     
     // Also focus desktop canvas for keyboard input support
     canvas.focus();
