@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#FF6B00">
+    <title>Meme Viber - Text Status Editor</title>
+    <link rel="stylesheet" href="style_new.css">
+</head>
+<body>
+    <!-- EDITOR WORKSPACE -->
+    <div class="editor-container">
+        <!-- TOP BAR -->
+        <div class="editor-header">
+            <button class="btn-close" id="btnClose" title="Close editor">✕</button>
+            <div class="editor-title">Meme Viber</div>
+            <button class="btn-done" id="btnDone" title="Done editing">Done</button>
+        </div>
+
+        <!-- MAIN EDITABLE BOARD -->
+        <div class="board-wrapper">
+            <div class="board" id="board">
+                <!-- EDITABLE TEXT LAYER -->
+                <div class="text-layer" id="textLayer" contenteditable="true" spellcheck="false" placeholder="Tap to type your meme text..."></div>
+            </div>
+        </div>
+
+        <!-- BOTTOM COLOR SELECTOR -->
+        <div class="color-bar">
+            <button class="color-btn" data-color="#1E90FF" style="background: #1E90FF;" title="Blue"></button>
+            <button class="color-btn" data-color="#FF6B00" style="background: #FF6B00;" title="Orange"></button>
+            <button class="color-btn" data-color="#6B5B95" style="background: #6B5B95;" title="Purple"></button>
+            <button class="color-btn" data-color="#FF0000" style="background: #FF0000;" title="Red"></button>
+            <button class="color-btn" data-color="#00AA00" style="background: #00AA00;" title="Green"></button>
+            <button class="color-btn" data-color="#FFD700" style="background: #FFD700;" title="Yellow"></button>
+            <button class="color-btn" data-color="#FF1493" style="background: #FF1493;" title="Pink"></button>
+            <button class="color-btn" data-color="#000000" style="background: #000000;" title="Black"></button>
+            <button class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF; border: 2px solid #333;" title="White"></button>
+            <button class="color-btn gradient-btn" data-color="linear-gradient(135deg, #667eea, #764ba2)" style="background: linear-gradient(135deg, #667eea, #764ba2);" title="Gradient"></button>
+        </div>
+
+        <!-- TEXT FORMATTING TOOLBAR -->
+        <div class="formatting-toolbar">
+            <!-- FONT SIZE -->
+            <div class="toolbar-group">
+                <label>Size</label>
+                <input type="range" id="fontSizeSlider" min="16" max="120" value="48" class="size-slider">
+                <span id="fontSizeDisplay">48px</span>
+            </div>
+
+            <!-- FONT FAMILY -->
+            <div class="toolbar-group">
+                <label>Font</label>
+                <select id="fontFamily" class="font-select">
+                    <option value="Arial">Arial</option>
+                    <option value="'Comic Sans MS'">Comic Sans</option>
+                    <option value="'Impact'">Impact</option>
+                    <option value="'Georgia'">Georgia</option>
+                    <option value="'Courier New'">Courier</option>
+                </select>
+            </div>
+
+            <!-- TEXT COLOR -->
+            <div class="toolbar-group">
+                <label>Text Color</label>
+                <input type="color" id="textColorPicker" value="#FFFFFF" class="color-picker">
+            </div>
+
+            <!-- TEXT ALIGNMENT -->
+            <div class="toolbar-group">
+                <button class="align-btn" id="alignLeft" title="Align left">←</button>
+                <button class="align-btn" id="alignCenter" title="Align center">⊙</button>
+                <button class="align-btn" id="alignRight" title="Align right">→</button>
+            </div>
+        </div>
+
+        <!-- BOTTOM-RIGHT: SHARE NOW BUTTON -->
+        <button class="btn-share" id="btnShare" title="Share your meme" disabled>
+            <span class="share-icon">📤</span>
+            <span class="share-text">Share</span>
+        </button>
+    </div>
+
+    <!-- EXPORT CANVAS (Hidden) -->
+    <canvas id="exportCanvas" style="display: none;"></canvas>
+
+    <!-- SHARE MENU (Modal) -->
+    <div class="share-menu" id="shareMenu">
+        <div class="share-modal">
+            <button class="modal-close" id="closeShareMenu">✕</button>
+            <h2>Share Your Meme</h2>
+            <button class="share-option" id="shareDownload">
+                <span class="option-icon">⬇️</span>
+                <span>Download Image</span>
+            </button>
+            <button class="share-option" id="shareWhatsApp">
+                <span class="option-icon">💬</span>
+                <span>Share to WhatsApp</span>
+            </button>
+            <button class="share-option" id="shareFacebook">
+                <span class="option-icon">👍</span>
+                <span>Share to Facebook</span>
+            </button>
+            <button class="share-option" id="shareTwitter">
+                <span class="option-icon">𝕏</span>
+                <span>Share to X</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- OVERLAY FOR MODALS -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <script src="script_new.js"></script>
+</body>
+</html>
