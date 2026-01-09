@@ -972,7 +972,7 @@ canvas {
 }
 
 .about-header h1 {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Inter', sans-serif;
     font-size: 36px;
     font-weight: 700;
     color: #FF6B00;
@@ -1112,7 +1112,7 @@ canvas {
 }
 
 .founders-header h1 {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Inter', sans-serif;
     font-size: 36px;
     font-weight: 700;
     color: #FF6B00;
