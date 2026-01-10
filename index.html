@@ -26,12 +26,14 @@
 
         <div class="center-content">
             <div class="tagline">
-                <div>Become a Meme Lord Today!</div>
-                <div class="tagline-sub">Unleash Your Inner Meme Master</div>
+                <div>Kama inauma, ifanye meme</div>
+                <div class="tagline-sub">Forget love. Make memes</div>
             </div>
-            <div class="wrapper" onclick="goToEditor()">
+            <div class="wrapper">
                 <input type="checkbox" />
-                <div class="btn"></div>
+                <a href="mpya git pro/Meme-It/index.html" class="btn-link">
+                    <div class="btn"></div>
+                </a>
                 <div class="tooltip">
                     <svg></svg>
                     <svg></svg>
@@ -247,220 +249,8 @@
         </div>
     </div>
 
-    <!-- EDITOR PAGE (FACEBOOK-STYLE MEME GENERATOR) -->
-    <div class="editor-page" id="editorPage">
-        <!-- Close Button (Top-Left) -->
-        <button class="editor-close-btn" onclick="goToHome()" title="Close editor">✕</button>
 
-        <!-- Hidden input for mobile keyboard trigger -->
-        <input type="text" id="mobileKeyboardInput" class="mobile-keyboard-input" placeholder="Type text and emojis..." autocorrect="on" spellcheck="true">
-
-        <!-- Main Canvas Area -->
-        <div class="editor-canvas-wrapper">
-            <canvas id="canvas" width="600" height="600"></canvas>
-        </div>
-
-        <!-- Bottom Floating Color Bar -->
-        <div class="color-bar-container">
-            <div class="color-swatches">
-                <div class="color-swatch" style="background: #1E90FF;" onclick="changeBgColor('#1E90FF')" title="Blue"></div>
-                <div class="color-swatch" style="background: #FF6B00;" onclick="changeBgColor('#FF6B00')" title="Orange"></div>
-                <div class="color-swatch" style="background: #6B5B95;" onclick="changeBgColor('#6B5B95')" title="Purple"></div>
-                <div class="color-swatch" style="background: #FF0000;" onclick="changeBgColor('#FF0000')" title="Red"></div>
-                <div class="color-swatch" style="background: #00AA00;" onclick="changeBgColor('#00AA00')" title="Green"></div>
-                <div class="color-swatch" style="background: #FFD700;" onclick="changeBgColor('#FFD700')" title="Yellow"></div>
-                <div class="color-swatch" style="background: #FF1493;" onclick="changeBgColor('#FF1493')" title="Pink"></div>
-                <div class="color-swatch" style="background: #000000;" onclick="changeBgColor('#000000')" title="Black"></div>
-                <div class="color-swatch" style="background: linear-gradient(135deg, #FF6B6B, #FFD93D);" onclick="changeBgColor('linear-gradient(135deg, #FF6B6B, #FFD93D)')" title="Gradient 1"></div>
-                <div class="color-swatch" style="background: linear-gradient(135deg, #667eea, #764ba2);" onclick="changeBgColor('linear-gradient(135deg, #667eea, #764ba2)')" title="Gradient 2"></div>
-            </div>
-        </div>
-
-        <!-- Bottom-Left Settings Icon -->
-        <button class="editor-settings-btn" title="Customize Text" onclick="openTextSettings()">⚙️</button>
-
-        <!-- Bottom-Right Action Button with Share Menu -->
-        <button class="editor-action-btn" onclick="toggleShareMenu()" title="Share to social media">Share</button>
-        
-        <!-- Share Menu Dropdown -->
-        <div class="share-menu" id="shareMenu">
-            <button class="share-option" onclick="downloadMeme()">
-                <span class="share-icon">⬇️</span> Download
-            </button>
-            <button class="share-option" onclick="shareToWhatsApp()">
-                <span class="share-icon">💬</span> WhatsApp
-            </button>
-            <button class="share-option" onclick="shareToFacebook()">
-                <span class="share-icon"></span> Facebook
-            </button>
-            <button class="share-option" onclick="shareToInstagram()">
-                <span class="share-icon">📸</span> Instagram
-            </button>
-        </div>
-
-        <!-- Text Input Overlay (Hidden by default) -->
-        <div class="text-input-overlay" id="textInputOverlay">
-            <div class="text-input-popup">
-                <h3>Customize Text</h3>
-                <label>Text Content:</label>
-                <input type="text" id="textInput" placeholder="Enter text..." autofocus>
-                
-                <label>Font Size: <span id="fontSizeDisplay">48</span>px</label>
-                <input type="range" id="fontSize" min="20" max="150" value="48" oninput="document.getElementById('fontSizeDisplay').textContent = this.value; updateLiveText();">
-                
-                <label>Font:</label>
-                <select id="fontFamily" onchange="updateLiveText();">
-                    <option value="Comic Neue">Comic Neue</option>
-                    <option value="Impact">Impact</option>
-                    <option value="Bebas Neue">Bebas Neue</option>
-                    <option value="Arial">Arial</option>
-                </select>
-                
-                <label>Text Color:</label>
-                <input type="color" id="fontColor" value="#ffffff" onchange="updateLiveText();">
-                
-                <div class="popup-buttons">
-                    <button onclick="updateTextProperties()">Save</button>
-                    <button onclick="closeTextSettings()" class="cancel-btn">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sticker Picker (Floating, Bottom-Center) -->
-        <div class="sticker-picker" id="stickerPicker">
-            <div class="sticker-list">
-                <button class="sticker-btn" onclick="addSticker('😂')">😂</button>
-                <button class="sticker-btn" onclick="addSticker('🔥')">🔥</button>
-                <button class="sticker-btn" onclick="addSticker('💯')">💯</button>
-                <button class="sticker-btn" onclick="addSticker('👏')">👏</button>
-                <button class="sticker-btn" onclick="addSticker('🤣')">🤣</button>
-                <button class="sticker-btn" onclick="addSticker('😎')">😎</button>
-                <button class="sticker-btn" onclick="addSticker('🎉')">🎉</button>
-                <button class="sticker-btn" onclick="addSticker('⭐')">⭐</button>
-            </div>
-            <button class="close-sticker-picker" onclick="closeStickerPicker()">Close</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
-    <script>
-        function toggleMenu() {
-            document.getElementById('sideMenu').classList.toggle('open');
-            document.getElementById('menuOverlay').classList.toggle('open');
-        }
-
-        function closeMenu() {
-            document.getElementById('sideMenu').classList.remove('open');
-            document.getElementById('menuOverlay').classList.remove('open');
-        }
-
-        function goToEditor() {
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('editorPage').classList.add('show');
-            setTimeout(() => drawCanvas(), 100);
-        }
-
-        function goToHome() {
-            document.getElementById('editorPage').classList.remove('show');
-            document.getElementById('homePage').style.display = 'flex';
-        }
-
-        function showSection(section) {
-            closeMenu();
-            if (section === 'about') {
-                openAboutModal();
-            } else if (section === 'founders') {
-                openFoundersModal();
-            } else if (section === 'settings') {
-                openSettingsModal();
-            }
-        }
-
-        function openAboutModal() {
-            document.getElementById('aboutModal').classList.add('show');
-        }
-
-        function closeAboutModal() {
-            document.getElementById('aboutModal').classList.remove('show');
-        }
-
-        function openFoundersModal() {
-            document.getElementById('foundersModal').classList.add('show');
-        }
-
-        function closeFoundersModal() {
-            document.getElementById('foundersModal').classList.remove('show');
-        }
-
-        let currentZoomLevel = 1;
-
-        function openImageModal(imageSrc) {
-            const modal = document.getElementById('imageZoomModal');
-            const zoomableImg = document.getElementById('zoomableImage');
-            zoomableImg.src = imageSrc;
-            currentZoomLevel = 1;
-            updateZoomLevel();
-            modal.classList.add('show');
-        }
-
-        function closeImageModal() {
-            document.getElementById('imageZoomModal').classList.remove('show');
-            currentZoomLevel = 1;
-        }
-
-        function zoomImage(delta) {
-            currentZoomLevel += delta;
-            if (currentZoomLevel < 0.5) currentZoomLevel = 0.5;
-            if (currentZoomLevel > 3) currentZoomLevel = 3;
-            updateZoomLevel();
-        }
-
-        function updateZoomLevel() {
-            const img = document.getElementById('zoomableImage');
-            img.style.transform = `scale(${currentZoomLevel})`;
-            document.querySelector('.zoom-level').textContent = Math.round(currentZoomLevel * 100) + '%';
-        }
-
-        function openWhatsApp(phoneNumber) {
-            window.open(`https://wa.me/${phoneNumber}`, '_blank');
-        }
-
-        function openSettingsModal() {
-            document.getElementById('settingsModal').classList.add('show');
-        }
-
-        function closeSettingsModal() {
-            document.getElementById('settingsModal').classList.remove('show');
-        }
-
-        function toggleTheme() {
-            const body = document.body;
-            const themeBtn = document.getElementById('themeToggleBtn');
-            
-            if (body.classList.contains('dark-theme')) {
-                body.classList.remove('dark-theme');
-                themeBtn.textContent = '🌙 Switch to Dark Mode';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark-theme');
-                themeBtn.textContent = '☀️ Switch to Light Mode';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Load theme preference on page load
-        function loadThemePreference() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeBtn = document.getElementById('themeToggleBtn');
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeBtn.textContent = '☀️ Switch to Light Mode';
-            }
-        }
-
-        // Load theme on page load
-        window.addEventListener('DOMContentLoaded', loadThemePreference);
-    </script>
 </body>
 </html>

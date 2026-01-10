@@ -1,117 +1,78 @@
-# 🎨 Meme Generator Pro
+# MEME VIBER
 
-A fully functional, mobile-friendly web application for creating, editing, and sharing memes.
+A modern, mobile-friendly landing page and community platform featuring:
 
 ## Features
 
-✨ **Core Functionality:**
-- 📝 Add text directly on canvas with customizable fonts, sizes, colors
-- 🎭 Add emoji stickers and drag/resize them freely
-- 🎨 Customize canvas background color
-- 💾 Download memes as PNG with watermark
-- 📱 Share on WhatsApp and Twitter
-- 📨 Send to WhatsApp channel
-- ✏️ Edit and delete elements on canvas
-- 📱 Fully responsive and mobile-friendly
+- **Homepage** - Welcome page with animated introduction
+- **Menu Navigation** - Easy access to all sections via hamburger menu
+- **Founders Section** - Meet the team with clickable profiles and WhatsApp contact buttons
+- **About Section** - Learn about MEME VIBER's mission and services
+- **Settings** - Theme toggle (Light/Dark mode)
+- **Image Zoom** - Click on founder images to view in full screen with zoom controls
+- **Dark Mode** - Beautiful dark theme with localStorage persistence
+
+## Project Structure
+
+```
+/workspaces/memespro/
+├── index.html      - Main HTML file with all pages/modals
+├── style.css       - All styling for homepage and modals
+├── script.js       - JavaScript for interactions and functionality
+└── .github/        - GitHub configuration
+```
 
 ## Quick Start
 
-1. **Open the application:**
-   - Simply open `index.html` in any modern web browser
-   - No installation or server required
+1. Open `index.html` in a web browser
+2. Click the menu icon (☰) in the top-right corner
+3. Navigate to About, Founders, or Settings
+4. Click on founder images to view them in full screen
+5. Use the settings menu to toggle between light and dark themes
 
-2. **Create a meme:**
-   - Type text in the "Add Text" section
-   - Customize font, size, and colors
-   - Click "Add Text to Canvas" or click directly on the canvas
-   - Add stickers by clicking any emoji button
-   - Drag elements to reposition them
+## Pages & Features
 
-3. **Download & Share:**
-   - Click "Download as PNG" to save your meme
-   - Use WhatsApp or Twitter buttons to share instantly
-   - Send to WhatsApp channel using the integration
+### Home Page
+- Welcome tagline and introduction
+- Animated logo and menu button
 
-## Customization
+### Menu Navigation
+- About - Learn about MEME VIBER
+- Founders - Meet the founding team
+- Settings - Adjust preferences
 
-### Watermark
-The watermark automatically appears at the bottom-left of downloaded memes. To change it:
-1. Replace the watermark SVG in `script.js` (watermarkBase64 variable)
-2. Or update the watermarkUrl to point to your logo
+### Founders Page
+- Display of all founding members
+- Profile images with zoom functionality
+- WhatsApp DM buttons for each founder
+- Click images to view in full screen with zoom controls
 
-### Fonts
-Available fonts:
-- Impact (Default)
-- Bebas Neue
-- Pacifico
-- Permanent Marker
-- Arial
-- Verdana
+### About Page
+- Mission statement and values
+- Service descriptions
+- Language: Swahili with English terms
 
-Add more fonts by:
-1. Importing from Google Fonts in the HTML `<head>`
-2. Adding options to the `fontFamily` select element
+### Settings
+- Dark/Light theme toggle
+- Preferences saved to browser localStorage
 
-### Stickers
-Edit the sticker grid in `index.html` to add/remove emojis or use custom images.
+## Technologies Used
 
-## Technology Stack
+- HTML5
+- CSS3 (with flexbox and grid layouts)
+- Vanilla JavaScript (no frameworks)
+- Responsive mobile-first design
+- LocalStorage API for theme persistence
 
-- **HTML5** - Canvas API for drawing
-- **CSS3** - Responsive grid layout with media queries
-- **Vanilla JavaScript** - DOM manipulation, file download, sharing APIs
-- **Google Fonts** - Custom typography
-- **No dependencies** - Zero external libraries required
+## Browser Compatibility
 
-## Browser Support
-
-- Chrome/Edge (Latest)
-- Firefox (Latest)
-- Safari (Latest)
+- Modern browsers (Chrome, Firefox, Safari, Edge)
 - Mobile browsers (iOS Safari, Chrome Mobile)
+- Touch-friendly interface for all devices
 
-## File Structure
+## Notes
 
-```
-memespro/
-├── index.html      # Main HTML with UI controls
-├── script.js       # Canvas logic and interactivity
-├── README.md       # This file
-└── .git/          # Version control
-```
-
-## Tips for Creating Great Memes
-
-1. Use high contrast between text and background
-2. Add watermark for branding
-3. Keep text short and impactful
-4. Use emojis strategically for emphasis
-5. Test on mobile before sharing
-
-## WhatsApp Channel Integration
-
-- **Channel**: https://whatsapp.com/channel/0029VbCDhE1B4hdTWT2hUg3s
-- Click "Send to Channel" button to share your memes
-- For automated bot integration, use WhatsApp Business API with Whiskey/Bailes bot
-
-## Future Enhancements
-
-- Image upload support
-- Filter and effect layers
-- Template library
-- Undo/Redo functionality
-- More sticker packs
-- Custom watermark upload
-- Multi-language support
-
-## License
-
-Open source - Feel free to use and modify for your projects!
-
-## Support
-
-For issues or feature requests, create an issue in the repository.
-
----
-
-**Made with ❤️ for meme lovers everywhere** 🚀
+- No external dependencies required
+- All CSS is in a single file for easy deployment
+- All JavaScript is vanilla (no jQuery or frameworks)
+- Mobile-optimized with proper viewport settings
