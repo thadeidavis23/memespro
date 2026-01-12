@@ -97,11 +97,40 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.submit:hover:not(:disabled) {
+  background: #27ae60;
+  transform: scale(1.05);
+}
+
+.submit:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .thankyou {
   display: none;
   padding: 40px;
+  background: #d4edda;
+  border-radius: 10px;
+  margin: 20px;
+  animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 </head>
