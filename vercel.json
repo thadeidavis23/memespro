@@ -5,8 +5,5 @@
       "memory": 128,
       "maxDuration": 30
     }
-  },
-  "env": {
-    "FASTLIPA_API_KEY": "@fastlipa_api_key"
   }
 }
