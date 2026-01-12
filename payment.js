@@ -1,12 +1,7 @@
 // Payment module - handles all donation/payment transactions
 const PaymentModule = {
-  API_ENDPOINT: "https://api.fastlipa.com/api/create-transaction",
-  API_KEY: null,
-
-  // Initialize with API key from .env
-  init(apiKey) {
-    this.API_KEY = apiKey;
-  },
+  // Use internal API route (Vercel Serverless Function)
+  API_ENDPOINT: "/api/payment",
 
   // Open modal for donation
   openModal(type) {
@@ -32,13 +27,11 @@ const PaymentModule = {
       const response = await fetch(this.API_ENDPOINT, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${this.API_KEY}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          number: phone,
-          amount: amount,
-          name: "Memes Channel Donation"
+          phone: phone,
+          amount: amount
         })
       });
 
