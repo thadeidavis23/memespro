@@ -2,6 +2,7 @@
 const PaymentModule = {
   // Use internal API route (Vercel Serverless Function)
   API_ENDPOINT: "/api/payment",
+  isProcessing: false,
 
   // Open modal for donation
   openModal(type) {
@@ -15,11 +16,17 @@ const PaymentModule = {
 
   // Process donation payment
   async donate() {
-    const phone = document.getElementById("phone").value;
-    const amount = document.getElementById("amount").value;
-    const name = document.getElementById("name")?.value || "Donor";
+    // Prevent multiple submissions
+    if (this.isProcessing) {
+      console.warn("Payment already processing, please wait...");
+      return;
+    }
 
-    if (!phone || !amount) {
+    const phone = document.getElementById("phone").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    const name = document.getElementById("name")?.value.trim() || "Donor";
+
+    if (!phone || !amount || !name) {
       alert("Fill all required fields");
       return;
     }
@@ -36,7 +43,20 @@ const PaymentModule = {
       return;
     }
 
+    this.isProcessing = true;
+    const submitBtn = event?.target;
+    const originalText = submitBtn?.innerText;
+
     try {
+      // Show loading state
+      if (submitBtn) {
+        submitBtn.innerText = "Processing...";
+        submitBtn.disabled = true;
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
       const response = await fetch(this.API_ENDPOINT, {
         method: "POST",
         headers: {
@@ -46,20 +66,53 @@ const PaymentModule = {
           phone: phone,
           amount: parseInt(amount),
           name: name
-        })
+        }),
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok && response.status !== 200) {
+        throw new Error(`HTTP ${response.status}`);
+      }
 
       const data = await response.json();
       console.log("Payment response:", data);
 
       if (data.status === "success") {
-        document.body.innerHTML = document.getElementById("thankyou").outerHTML;
+        // Close modal first
+        document.getElementById("modal").style.display = "none";
+        
+        // Clear form
+        document.getElementById("phone").value = "";
+        document.getElementById("amount").value = "";
+        document.getElementById("name").value = "";
+        
+        // Show thank you message
+        const thankYou = document.getElementById("thankyou");
+        if (thankYou) {
+          thankYou.style.display = "block";
+          thankYou.scrollIntoView({ behavior: "smooth" });
+        }
+        
+        alert("✓ Payment successful! Complete payment on your phone");
       } else {
-        alert("Transaction failed: " + (data.message || data.error || "Unknown error"));
+        alert("❌ Transaction failed: " + (data.message || data.error || "Unknown error"));
       }
     } catch (error) {
       console.error("Payment error:", error);
-      alert("Network error: " + error.message);
+      if (error.name === "AbortError") {
+        alert("❌ Request timeout - try again");
+      } else {
+        alert("❌ Network error: " + error.message);
+      }
+    } finally {
+      // Reset loading state
+      this.isProcessing = false;
+      if (submitBtn) {
+        submitBtn.innerText = originalText || "Proceed";
+        submitBtn.disabled = false;
+      }
     }
   }
 };
