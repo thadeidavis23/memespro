@@ -50,7 +50,7 @@ const PaymentModule = {
     try {
       // Show loading state
       if (submitBtn) {
-        submitBtn.innerText = "Processing...";
+        submitBtn.innerText = "Processing";
         submitBtn.disabled = true;
       }
 
@@ -94,10 +94,8 @@ const PaymentModule = {
           thankYou.style.display = "block";
           thankYou.scrollIntoView({ behavior: "smooth" });
         }
-        
-        alert("✓ Payment successful! Complete payment on your phone");
       } else {
-        alert("❌ Transaction failed: " + (data.message || data.error || "Unknown error"));
+        alert("Transaction failed: " + (data.message || data.error || "Unknown error"));
       }
     } catch (error) {
       console.error("Payment error:", error);
