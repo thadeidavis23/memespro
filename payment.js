@@ -17,9 +17,22 @@ const PaymentModule = {
   async donate() {
     const phone = document.getElementById("phone").value;
     const amount = document.getElementById("amount").value;
+    const name = document.getElementById("name")?.value || "Donor";
 
     if (!phone || !amount) {
-      alert("Fill all fields");
+      alert("Fill all required fields");
+      return;
+    }
+
+    // Validate phone format
+    if (phone.length < 9) {
+      alert("Invalid phone number");
+      return;
+    }
+
+    // Validate amount
+    if (isNaN(amount) || amount <= 0) {
+      alert("Amount must be a positive number");
       return;
     }
 
@@ -31,7 +44,8 @@ const PaymentModule = {
         },
         body: JSON.stringify({
           phone: phone,
-          amount: amount
+          amount: parseInt(amount),
+          name: name
         })
       });
 
@@ -41,7 +55,7 @@ const PaymentModule = {
       if (data.status === "success") {
         document.body.innerHTML = document.getElementById("thankyou").outerHTML;
       } else {
-        alert("Transaction failed: " + (data.message || "Unknown error"));
+        alert("Transaction failed: " + (data.message || data.error || "Unknown error"));
       }
     } catch (error) {
       console.error("Payment error:", error);
